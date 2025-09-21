@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>天気予報 by 郵便番号</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>郵便番号で天気予報</h1>
+  <input type="text" id="zipcode" placeholder="郵便番号（例: 1000001）" maxlength="7">
+  <button onclick="getWeather()">取得</button>
+
+  <div id="loading"></div>
+  <div id="current-weather"></div>
+
+  <table id="forecast-table">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>時間</th>
+        <th>天候</th>
+        <th>気温</th>
+        <th>風向</th>
+        <th>降水確率</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
