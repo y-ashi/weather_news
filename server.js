@@ -46,7 +46,8 @@ app.get('/weather', async (req, res) => {
   }
 
   const postal_code = `${zip.slice(0, 3)}-${zip.slice(3)}`;
-  console.log(`取得中： ${postal_code}`);
+  console.log(`天気情報取得リクエスト受信`)
+//   console.log(`取得中： ${postal_code}`);
 
   try {
     const currentWeather = await get_weather_json(postal_code);
