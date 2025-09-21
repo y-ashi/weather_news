@@ -6,6 +6,46 @@ body {
   transition: background-color 0.5s ease;
 }
 
+body.sunny {
+  background-image: url('images/sunny-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.cloudy {
+  background-image: url('images/cloudy-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.rainy {
+  background-image: url('images/rainy-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.stormy {
+  background-image: url('images/stormy-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.snowy {
+  background-image: url('images/snowy-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.foggy {
+  background-image: url('images/foggy-sky.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body.default {
+  background-color: #f0f8ff;
+}
+
 h1 {
   font-size: 1.8em;
   margin-bottom: 1em;
