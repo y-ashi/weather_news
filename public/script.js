@@ -15,15 +15,27 @@ function getWeather() {
     .then(data => {
       const current = data['現在の天気情報'];
       const forecast = data['2日分の予報（3時間ごと）'];
-      const iconUrl = `https://openweathermap.org/img/wn/${current['天候']}@2x.png`;
+      const iconCode = current['天候'].replace('n', 'd'); // 夜コードを昼に変換
+      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
       // 背景色変更
-      const weatherBgMap = {
-        '01d': '#ffeaa7', '02d': '#dfe6e9', '03d': '#b2bec3',
-        '09d': '#74b9ff', '10d': '#0984e3', '11d': '#636e72',
-        '13d': '#dfe6e9', '50d': '#b2bec3'
+      const weatherClassMap = {
+        '01d': 'sunny',
+        '02d': 'cloudy',
+        '03d': 'cloudy',
+        '04d': 'cloudy',
+        '09d': 'rainy',
+        '10d': 'rainy',
+        '11d': 'stormy',
+        '13d': 'snowy',
+        '50d': 'foggy'
       };
-      document.body.style.backgroundColor = weatherBgMap[current['天候']] || '#f0f8ff';
+
+     const unifiedCode = current['天候'].replace('n', 'd');
+     const weatherClass = weatherClassMap[unifiedCode] || 'default';
+     document.body.className = weatherClass;
+     console.log('天気コード:', current['天候']);
+     console.log('背景クラス:', weatherClass);
 
       // アドバイス生成
       let advice = '';
