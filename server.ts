@@ -8,7 +8,7 @@ const app = express();
 const PORT = 3000;
 const api_key = process.env.API_KEY;
 
-
+app.disable('x-powered-by');
 app.use(express.static(__dirname + '/public/public'));
 app.use((req: any, res: any, next: any) => {
   res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; connect-src 'self'");
