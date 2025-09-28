@@ -4,7 +4,7 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc --project tsconfig.server.json && tsc --project tsconfig.frontend.json && cp -r public/* dist/public/",
+    "build": "tsc --project tsconfig.server.json && tsc --project tsconfig.frontend.json",
     "start": "node dist/server.js",
     "serve": "node dist/server.js"
   },
