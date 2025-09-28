@@ -1,25 +1,33 @@
 function getWeather() {
-  const zipcode = document.getElementById('zipcode').value;
+  const zipcode = (document.getElementById('zipcode') as HTMLInputElement).value;
+
   if (!/^\d{7}$/.test(zipcode)) {
     alert('郵便番号は半角数字7桁で入力してください');
     return;
   }
 
   const formattedZip = `${zipcode.slice(0, 3)}-${zipcode.slice(3)}`;
-  document.getElementById('loading').innerText = `取得中： ${formattedZip}`;
-  document.getElementById('current-weather').innerText = '';
-  document.querySelector('#forecast-table tbody').innerHTML = '';
+  (document.getElementById('loading') as HTMLElement).innerText = `取得中： ${formattedZip}`;
+  (document.getElementById('current-weather') as HTMLElement).innerText = '';
+  (document.querySelector('#forecast-table tbody') as HTMLElement).innerHTML = '';
+  type ForcastItem = {
+        時間: string;
+        天候: string;
+        気温: number;
+        風向: number;
+        降水確率: number;
+      };
 
   fetch(`/weather?zipcode=${zipcode}`)
     .then(res => res.json())
     .then(data => {
       const current = data['現在の天気情報'];
-      const forecast = data['2日分の予報（3時間ごと）'];
+      const forecast: ForcastItem[] = data['2日分の予報（3時間ごと）'];
       const iconCode = current['天候'].replace('n', 'd'); // 夜コードを昼に変換
       const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
       // 背景色変更
-      const weatherClassMap = {
+      const weatherClassMap: Record<string, string> = {
         '01d': 'sunny',
         '02d': 'cloudy',
         '03d': 'cloudy',
@@ -45,7 +53,7 @@ function getWeather() {
         advice += '☔ 傘を持っていきましょう。';
       }
 
-      document.getElementById('current-weather').innerHTML = `
+      (document.getElementById('current-weather') as HTMLElement).innerHTML = `
         <div class="weather-card">
           <img src="${iconUrl}" alt="天気アイコン"><br>
           <strong>${current['エリア']}</strong><br>
@@ -56,7 +64,7 @@ function getWeather() {
       `;
 
       // 日付・時間整形
-      function getDateAndHour(datetimeStr) {
+      function getDateAndHour(datetimeStr: string) {
         const date = new Date(datetimeStr);
         return {
           date: `${date.getMonth() + 1}月${date.getDate()}日`,
@@ -65,7 +73,7 @@ function getWeather() {
       }
 
       // 風向変換
-      function getDirection(degree) {
+      function getDirection(degree: number) {
         const directions = ['北', '北北東', '北東', '東北東', '東', '東南東', '南東', '南南東',
                             '南', '南南西', '南西', '西南西', '西', '西北西', '北西', '北北西'];
         const index = Math.round(degree / 22.5) % 16;
@@ -76,7 +84,7 @@ function getWeather() {
       let previousDate = '';
       const tbody = document.querySelector('#forecast-table tbody');
 
-      forecast.forEach(item => {
+      forecast.forEach((item: ForcastItem) => {
         const { date, hour } = getDateAndHour(item['時間']);
         const showDate = date === previousDate ? '　' : date;
         previousDate = date;
@@ -97,11 +105,11 @@ function getWeather() {
           <td>${getDirection(item['風向'])}</td>
           <td style="color:${item['降水確率'] > 50 ? 'blue' : 'gray'}">${item['降水確率']}%</td>
         `;
-        tbody.appendChild(row);
+        (tbody as Element).appendChild(row);
       });
     })
     .catch(err => {
-      document.getElementById('loading').innerText = '';
+      (document.getElementById('loading') as HTMLElement).innerText = '';
       alert('天気情報の取得に失敗しました');
     });
 }

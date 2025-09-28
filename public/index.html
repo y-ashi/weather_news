@@ -2,12 +2,17 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:3000;">
   <title>天気予報 by 郵便番号</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>郵便番号で天気予報</h1>
   <input type="text" id="zipcode" placeholder="郵便番号（例: 1000001）" maxlength="7">
+  <!-- <button id="fetchBtn">取得</button>
+  <script src="script.js" defer>
+    document.getElementById('fetchBtn').addEventListener('click', fetchWeather);
+  </script> -->
   <button onclick="getWeather()">取得</button>
 
   <div id="loading"></div>
