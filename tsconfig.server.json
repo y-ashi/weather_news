@@ -6,7 +6,8 @@
     "rootDir": "./",
     "strict": true,
     "types": ["node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["server.ts"]
 }
