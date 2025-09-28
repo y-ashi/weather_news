@@ -1,19 +1,23 @@
 "use strict";
-const express = require('express');
-const axios = require('axios');
-const dotenv = require('dotenv');
-dotenv.config();
-const app = express();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const axios_1 = __importDefault(require("axios"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
 const PORT = 3000;
 const api_key = process.env.API_KEY;
-app.use(express.static(__dirname + '/public/public'));
+app.use(express_1.default.static(__dirname + '/public/public'));
 app.use((req, res, next) => {
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; connect-src 'self'");
     next();
 });
 function get_weather_json(postal_code) {
     const url = `https://api.openweathermap.org/data/2.5/weather?zip=${postal_code},JP&units=metric&lang=ja&appid=${api_key}`;
-    return axios.get(url)
+    return axios_1.default.get(url)
         .then((response) => {
         const data = response.data;
         return {
@@ -27,7 +31,7 @@ function get_weather_json(postal_code) {
 }
 function get_forecast_json(postal_code) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${postal_code},JP&units=metric&lang=ja&appid=${api_key}`;
-    return axios.get(url)
+    return axios_1.default.get(url)
         .then((response) => {
         return response.data.list.slice(0, 16).map((item) => ({
             時間: item.dt_txt,
